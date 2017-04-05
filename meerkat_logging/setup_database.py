@@ -7,14 +7,19 @@ import sys, getopt
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
 
-import model
+import model, config
+from config import Config
 
-def setup_database(url, base):
+def setup_database(url = None, base = None):
+    if not url:
+    	config = Config()
+    	url = Config.SQLALCHEMY_DATABASE_URI
+    if not base:
+    	base = model.Base
     try:
         if not database_exists(url):
             print('Creating database.')
             create_database(url)
-
     except exc.OperationalError as e:
         print('There was an error connecting to the db.')
         print(e)
@@ -24,7 +29,6 @@ def setup_database(url, base):
     base.metadata.create_all(engine)
 
     return True
-
 
 
 def parse_args(argv):

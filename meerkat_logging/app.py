@@ -10,6 +10,7 @@ import time
 from dateutil.parser import parse
 import uuid
 from model import Log
+from setup_database import setup_database
 from flask_sqlalchemy import SQLAlchemy
 
 # Create the Flask app
@@ -20,6 +21,7 @@ app.config['DEBUG'] = True
 app.config.from_object('config.Config')
 
 db = SQLAlchemy(app)
+setup_database()
 app.secret_key = uuid.uuid4()
 
 @app.route("/", methods=['GET'])

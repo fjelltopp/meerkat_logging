@@ -4,8 +4,6 @@ Logging database model definition
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm import validates
-from sqlalchemy.event import listen
 
 Base = declarative_base()
 
