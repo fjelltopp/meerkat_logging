@@ -35,15 +35,15 @@ def parse_args(argv):
    try:
       opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
    except getopt.GetoptError:
-      print 'setup_database.py -d <database_url>'
+      print('setup_database.py -d <database_url>')
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'setup_database.py -d <database_url>'
+         print('setup_database.py -d <database_url>')
          sys.exit()
       elif opt in ("-d", "--database"):
          database_url = arg
-   print 'Database URL is "', database_url
+   print('Database URL is ', database_url)
    setup_database(database_url, model.Base)
 
 
