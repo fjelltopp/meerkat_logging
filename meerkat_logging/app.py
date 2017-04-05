@@ -16,6 +16,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
+app.config.from_object('config.Config')
+
 db = SQLAlchemy(app)
 app.secret_key = uuid.uuid4()
 
@@ -45,6 +48,8 @@ def input_to_log(data):
             implementation=data["implementation"],
             event_data=data["event_data"]
         )
+        db.session.add(log)
+        db.session.commit()
         return log
     except KeyError:
         print("Wrong format")
