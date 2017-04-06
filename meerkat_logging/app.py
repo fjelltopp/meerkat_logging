@@ -4,15 +4,16 @@ meerkat_logging
 Api for gathering event logs
 
 """
-from flask import Flask, abort, request
+from flask import Flask, abort, request, g, current_app
 import datetime
 import time
 from dateutil.parser import parse
 import uuid
-from meerkat_logging import model
+from meerkat_logging import model, FlaskActivityLogger
 from meerkat_logging.setup_database import setup_database
 from flask_sqlalchemy import SQLAlchemy
-
+from flask import request_finished
+from time import sleep
 # Create the Flask app
 
 app = Flask(__name__)
@@ -24,6 +25,8 @@ setup_database(url=app.config["SQLALCHEMY_DATABASE_URI"], base=model.Base)
 db = SQLAlchemy(app)
 
 app.secret_key = uuid.uuid4()
+FlaskActivityLogger(app, ["event"])
+
 
 
 @app.route("/", methods=['GET'])
