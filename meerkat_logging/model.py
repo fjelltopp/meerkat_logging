@@ -12,9 +12,9 @@ class Log(Base):
     
     uuid = Column(String, primary_key=True)
     timestamp = Column(DateTime, index=True)
-    type = Column(String)
+    type = Column(String, index=True)
     source = Column(String, index=True)
-    source_type = Column(String)
-    implementation = Column(String)
+    source_type = Column(String, index=True)
+    implementation = Column(String, index=True)
     event_data = Column(JSONB)
 

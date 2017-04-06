@@ -9,20 +9,22 @@ import datetime
 import time
 from dateutil.parser import parse
 import uuid
-from model import Log
-from setup_database import setup_database
+from meerkat_logging import model
+from meerkat_logging.setup_database import setup_database
 from flask_sqlalchemy import SQLAlchemy
 
 # Create the Flask app
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 
-app.config.from_object('config.Config')
+app.config.from_object('config.DEBUG')
 
+# Set up DB
+setup_database(url=app.config["SQLALCHEMY_DATABASE_URI"], base=model.Base)
 db = SQLAlchemy(app)
-setup_database()
+
 app.secret_key = uuid.uuid4()
+
 
 @app.route("/", methods=['GET'])
 def root():
@@ -34,14 +36,15 @@ def add_event():
     t = time.time()
     post_data = request.get_json()
     log_entry = input_to_log(post_data)
+    db.session.add(log_entry)
+    db.session.commit()
     print(time.time() - t)
-    print(log_entry)
     return "OK"
 
 
 def input_to_log(data):
-    try: 
-        log = Log(
+    try:
+        log = model. Log(
             uuid=uuid.uuid4(),
             timestamp=parse(data["timestamp"]),
             source=data["source"],
@@ -50,8 +53,7 @@ def input_to_log(data):
             implementation=data["implementation"],
             event_data=data["event_data"]
         )
-        db.session.add(log)
-        db.session.commit()
+
         return log
     except KeyError:
         print("Wrong format")
