@@ -6,8 +6,6 @@ from flask import request_started
 from flask import request_finished
 
 
-
-
 class FlaskActivityLogger:
     def __init__(self, app, exclude=None):
         self.app = app
@@ -21,19 +19,31 @@ class FlaskActivityLogger:
                         self.source,
                         self.source_type,
                         self.implementation)
+        
         @request_started.connect_via(app)
         def request_start(sender, **extra):
             g.time = time.time()
         excluded = []
         if exclude:
             excluded = exclude
-        @request_finished.connect_via(app)   
+            
+        @request_finished.connect_via(app)
         def send_log_request(sender, response, **extra):
             path = request.path.split("/")[-1]
             if not path:
                 path = "root"
+            print(g.payload)
             if path not in excluded:
-                logger.send({"test": "test"})
+                logger.send({"path": request.path,
+                             "base_url": request.base_url,
+                             "full_url": request.url,
+                             "user": g.payload.get("usr", None),
+                             "role": g.payload.get("acc",
+                                                   {}).get(self.implementation,
+                                                           []),
+                             "request_time": time.time() - g.time})
+
+
 class Logger:
     def __init__(self, logging_url, event_type, source,
                  source_type, implementation):
