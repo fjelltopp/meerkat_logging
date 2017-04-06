@@ -17,7 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config.from_object('config.DEBUG')
+app.config.from_object('config.Development')
 
 # Set up DB
 setup_database(url=app.config["SQLALCHEMY_DATABASE_URI"], base=model.Base)
@@ -35,9 +35,11 @@ def root():
 def add_event():
     t = time.time()
     post_data = request.get_json()
-    log_entry = input_to_log(post_data)
-    db.session.add(log_entry)
-    db.session.commit()
+    print(post_data)
+    if post_data:
+        log_entry = input_to_log(post_data)
+        db.session.add(log_entry)
+        db.session.commit()
     print(time.time() - t)
     return "OK"
 
