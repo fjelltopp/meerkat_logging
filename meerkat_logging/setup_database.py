@@ -9,7 +9,7 @@ from sqlalchemy import create_engine, exc
 from sqlalchemy_utils import database_exists, create_database
 
 from meerkat_logging import model
-from meerkat_logging.config import Config
+from config import Config
 
 
 def setup_database(url=None, base=None):
