@@ -16,7 +16,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOGGING_URL = "http://nginx/logging"
     LOGGING_SOURCE = "test"
-    LOGGING_SOUCRE_TYPE = "test"
+    LOGGING_SOURCE_TYPE = "test"
     LOGGING_IMPLEMENTAION = "null_island"
     
 class Production(Config):
