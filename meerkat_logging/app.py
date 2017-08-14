@@ -9,11 +9,13 @@ import datetime
 import time
 from dateutil.parser import parse
 import uuid
-from meerkat_logging import model, FlaskActivityLogger
+from meerkat_logging import model
+from meerkat_libs.logger_client import FlaskActivityLogger
 from meerkat_logging.setup_database import setup_database
 from flask_sqlalchemy import SQLAlchemy
 from flask import request_finished
 from time import sleep
+from meerkat_libs.auth_client import auth
 # Create the Flask app
 
 app = Flask(__name__)
@@ -25,9 +27,7 @@ setup_database(url=app.config["SQLALCHEMY_DATABASE_URI"], base=model.Base)
 db = SQLAlchemy(app)
 
 app.secret_key = uuid.uuid4()
-FlaskActivityLogger(app, ["event"])
-
-
+FlaskActivityLogger(app, ["/event"])
 
 @app.route("/", methods=['GET'])
 def root():
@@ -35,6 +35,7 @@ def root():
 
 
 @app.route("/event", methods=['POST'])
+@auth.authorise(["logging"], ["meerkat"])
 def add_event():
     t = time.time()
     post_data = request.get_json()
@@ -49,7 +50,7 @@ def add_event():
 
 def input_to_log(data):
     try:
-        log = model. Log(
+        log = model.Log(
             uuid=uuid.uuid4(),
             timestamp=parse(data["timestamp"]),
             source=data["source"],
