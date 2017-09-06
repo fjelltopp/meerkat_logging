@@ -1,0 +1,19 @@
+language: python
+python:
+- '3.6'
+env:
+  global:
+  - MEERKAT_AUTH_SETTINGS='/home/travis/build/meerkat-code/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg'
+  - CONFIG_OBJECT="config.Testing"
+install:
+- pip install .
+- pip install -r requirements.txt
+- cd ..
+- git clone https://github.com/meerkat-code/meerkat_libs.git
+- pip install -r meerkat_libs/requirements.txt
+- export PYTHONPATH=$PYTHONPATH:$HOME/build/meerkat-code/meerkat_libs/
+- cd meerkat_logging/
+script: nosetests --logging-level=WARNING
+notifications:
+  slack:
+    secure: "lidQBuoG6qWyhxwSvvIce5HZZnjlLBDSshqNKeiHrNGsrWk5pi342+aKTzTxqsZHaP6A9ng8LDdSNab89a4BKb07oJhbB2oFuyBOAYXe/zbutAXGCsEZBbamrkspkpKFhOz+Ijq49K2me6ONkfRvyZVpGbNKf97l2R4v/elZZ2jZBy96QP7zPYyFMRLynNJssM1YgHKY74caHrRgaLwpVch7tKsNj8YgC+KPjigvOSqVy2D/SvquE4z7sroB7ATw/aQsKR/A+xi9sikHDwOu5syAUuWbw3LlxqUAj2qpDD0SpeWcVg4MZ3GB34sYiWIQGHMF3MDQ30WxV2hq3kT0qF78EXlnhGLIDoGNNNEYifayUsludqbaDCeZIcoZEbY5MtvzmenUj3uFZSUS1v7d8/ePb+x6kxNNmjDhKb6iIblE5lFo39zUmMbkqavVGqYmFosirvmJIHMfd3J8Skc+19jw4vDN+rilp/MysGXZ3aAMFvxkzNE6heyxPrIAxL9DFTM7HcleeD7KPs/ekqPnm6XpJmHG96Ni0QcMsXSq91Kvvd7aDyrhjbbgbmPw0T3PqaxEw4GLZSph1HN7bw9qFM25GVlNbVoD91giHOKbZc7WH1ZfWwn8+1hH28gfOfUAUB1SQ/zyW4vgBs572kihwZn0j9y3YujtPwNzpriSU8k="
