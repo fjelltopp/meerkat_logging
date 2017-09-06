@@ -5,6 +5,12 @@ env:
   global:
   - MEERKAT_AUTH_SETTINGS='/home/travis/build/meerkat-code/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg'
   - CONFIG_OBJECT="config.Testing"
+
+addons:
+  postgresql: '9.6'
+services:
+- postgresql
+
 install:
 - pip install .
 - pip install -r requirements.txt
