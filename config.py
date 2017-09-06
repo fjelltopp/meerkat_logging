@@ -17,7 +17,7 @@ class Config(object):
     LOGGING_URL = "http://nginx/logging"
     LOGGING_SOURCE = "test"
     LOGGING_SOURCE_TYPE = "test"
-    LOGGING_IMPLEMENTAION = "null_island"
+    LOGGING_IMPLEMENTATION = "null_island"
     
 class Production(Config):
     DEBUG = False
