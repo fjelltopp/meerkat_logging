@@ -4,7 +4,7 @@ meerkat_logging
 Api for gathering event logs
 
 """
-from flask import Flask, abort, request, current_app
+from flask import Flask, abort, request
 import time
 from dateutil.parser import parse
 import uuid
@@ -26,6 +26,7 @@ db = SQLAlchemy(app)
 app.secret_key = uuid.uuid4()
 print(app.config)
 FlaskActivityLogger(app, ["/event"])
+
 
 @app.route("/", methods=['GET'])
 def root():
