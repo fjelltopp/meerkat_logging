@@ -6,7 +6,7 @@ Unit tests for the Meerkat API
 """
 import unittest
 from meerkat_logging.app import app
-from meerkat_logging import send_log
+from meerkat_libs.logger_client import send_log
 from unittest import mock
 
 
@@ -20,7 +20,7 @@ class MeerkatLoggingSendingTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @mock.patch('meerkat_logging.requests')
+    @mock.patch('meerkat_libs.logger_client.requests')
     def test_send_log(self, mock_requests):
         """Check the index page loads"""
         send_log("http://test",
@@ -34,7 +34,8 @@ class MeerkatLoggingSendingTestCase(unittest.TestCase):
 
         mock_requests.post.assert_called_with(
             "http://test/event",
-            data={
+            headers={'content-type': 'application/json'},
+            json={
                 "timestamp": "2017-01-01",
                 "type": "user_event",
                 "source": "test-source",
@@ -42,7 +43,7 @@ class MeerkatLoggingSendingTestCase(unittest.TestCase):
                 "implementation": "null_island",
                 "event_data": {"test1": "test",
                                "test2": "test"}
-            }
-        )
+            })
+
 if __name__ == '__main__':
     unittest.main()

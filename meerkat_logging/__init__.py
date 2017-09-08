@@ -4,6 +4,7 @@ import time
 from flask import g, request
 from flask import request_started
 from flask import request_finished
+from meerkat_libs.auth_client import auth
 
 
 class FlaskActivityLogger:
@@ -32,14 +33,15 @@ class FlaskActivityLogger:
             path = request.path.split("/")[-1]
             if not path:
                 path = "root"
-            print(g.payload)
+            payload = g.get("payload", {})
             if path not in excluded:
+                app.logger.error("payload", type(payload))
                 logger.send({"path": request.path,
                              "base_url": request.base_url,
                              "full_url": request.url,
-                             "user": g.payload.get("usr", None),
-                             "role": g.payload.get("acc",
-                                                   {}).get(self.implementation,
+                             "user": payload.get("usr", None),
+                             "role": payload.get("acc",
+                                                 {}).get(self.implementation,
                                                            []),
                              "request_time": time.time() - g.time})
 
