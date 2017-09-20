@@ -5,12 +5,10 @@ env:
   global:
   - MEERKAT_AUTH_SETTINGS='/home/travis/build/meerkat-code/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg'
   - CONFIG_OBJECT="config.Testing"
-
 addons:
   postgresql: '9.6'
 services:
 - postgresql
-
 install:
 - pip install .
 - pip install -r requirements.txt
@@ -22,4 +20,4 @@ install:
 script: nosetests --logging-level=WARNING
 notifications:
   slack:
-    secure: "lidQBuoG6qWyhxwSvvIce5HZZnjlLBDSshqNKeiHrNGsrWk5pi342+aKTzTxqsZHaP6A9ng8LDdSNab89a4BKb07oJhbB2oFuyBOAYXe/zbutAXGCsEZBbamrkspkpKFhOz+Ijq49K2me6ONkfRvyZVpGbNKf97l2R4v/elZZ2jZBy96QP7zPYyFMRLynNJssM1YgHKY74caHrRgaLwpVch7tKsNj8YgC+KPjigvOSqVy2D/SvquE4z7sroB7ATw/aQsKR/A+xi9sikHDwOu5syAUuWbw3LlxqUAj2qpDD0SpeWcVg4MZ3GB34sYiWIQGHMF3MDQ30WxV2hq3kT0qF78EXlnhGLIDoGNNNEYifayUsludqbaDCeZIcoZEbY5MtvzmenUj3uFZSUS1v7d8/ePb+x6kxNNmjDhKb6iIblE5lFo39zUmMbkqavVGqYmFosirvmJIHMfd3J8Skc+19jw4vDN+rilp/MysGXZ3aAMFvxkzNE6heyxPrIAxL9DFTM7HcleeD7KPs/ekqPnm6XpJmHG96Ni0QcMsXSq91Kvvd7aDyrhjbbgbmPw0T3PqaxEw4GLZSph1HN7bw9qFM25GVlNbVoD91giHOKbZc7WH1ZfWwn8+1hH28gfOfUAUB1SQ/zyW4vgBs572kihwZn0j9y3YujtPwNzpriSU8k="
+    secure: JZq7ArBfLKEGSeFMA2pM5LYqWddlS96QHnu4+Z5qD5g2eiyXFjFw/k0cF5VKCKi9OfWMpJUQmy7Ic6iouFpXfxUC8x/TToOmn5oAxIouzU/vfth/vft0TY7+zksgbIzDPsFZDtbEJGyZBsSy3KMk0s6D61l91skuoSu9owS3a4gpKQyaonEQJr38yP6wPe5OWMlGO4hcUIjjvxjcXH/JwHOUobqxs4qOS/3/WfVjjhLunPdVE1e3Sv4Ws+Mnix3ZQXlUnadSfElFcQCB+dAq75ip4ls/CD+5PC9xQ7KFosoEJ0iWV0Z5ASYEXhupoDwHgyYquMoOyFkDsySHM6rByzey6vypfXad4pBV0tubPDluGFxkSC47F9H2Dpbla/zPOkOM8UnuOLiwE9vPzyEE3JWjeniHqJlTIViVEed+m/YK+FBvfUt64+0NjPvrma+n83V9Wa6wAYkesMnCcr/x6QOnZ+trfT5hq6lxGOT8kKTDu5pV3/QSxnsrHv2IMua56ptKWZr2eiGaXcmbuLKiTmaLZoT65HIEqgMLPduUoawo9ocoZEB7Up1lYfDXssgPDwZr6qR7u2RGvK8b4sq4JkfiWkgsQ84NOncJ7tYCaJ0dz1HNXDXyj7w5sB7laiX6ZU7Ga+PtwGqy7+/SPC4ybRmhSNwPHGoxQaoRDSDDvvg=
