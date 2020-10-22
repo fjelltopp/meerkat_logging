@@ -3,7 +3,7 @@ python:
 - '3.6'
 env:
   global:
-  - MEERKAT_AUTH_SETTINGS='/home/travis/build/meerkat-code/meerkat_libs/meerkat_libs/auth_client/sample_auth.cfg'
+  - MEERKAT_AUTH_SETTINGS="${TRAVIS_BUILD_DIR}/meerkat_libs/meerkat_libs/auth_client/dev_auth_config.py"
   - CONFIG_OBJECT="config.Testing"
 addons:
   postgresql: '9.6'
@@ -13,7 +13,7 @@ install:
 - pip install .
 - pip install -r requirements.txt
 - cd ..
-- git clone https://github.com/meerkat-code/meerkat_libs.git
+- git clone --branch development --single-branch https://github.com/meerkat-code/meerkat_libs.git
 - pip install -r meerkat_libs/requirements.txt
 - export PYTHONPATH=$PYTHONPATH:$HOME/build/meerkat-code/meerkat_libs/
 - cd meerkat_logging/
